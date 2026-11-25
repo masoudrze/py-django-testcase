@@ -189,4 +189,20 @@ class SessionTests(TestCase):
             self.client.session["_auth_user_id"],
             str(self.user.id)
         )
-        
+
+    def test_logout_session(self):
+        self.client.post(
+            "/api/login/",
+            {
+                "username":"admin",
+                "password":"123456"
+            }
+        )
+
+        self.assertIn("_auth_user_id", self.client.session)
+
+        response = self.client.post("/api/logout/")
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertNotIn("_auth_user_id",self.client.session)
