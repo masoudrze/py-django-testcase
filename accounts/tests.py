@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 # Create your tests here.
 from django.test import SimpleTestCase
+from unittest.mock import patch
+
 from .validators import validate_password
 
 
@@ -98,3 +100,44 @@ class PasswordTests(SimpleTestCase):
 
     def test_none_password(self):
         self.assertFalse(validate_password(None))
+
+
+
+class LoginMockTests(SimpleTestCase):
+
+    @patch("accounts.views.authenticate")
+    def test_valid_login(self, mock_authenticate):
+
+        mock_authenticate.return_value = User(
+            username="admin"
+        )
+
+        response = self.client.post(
+            "/api/login/",
+            {
+                "username":"admin",
+                "password":"123456"
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        mock_authenticate.assert_called_once_with(
+            username="admin",
+            password="123456"
+)
+
+    @patch("accounts.views.authenticate")
+    def test_invalid_login(self, mock_authenticate):
+
+        mock_authenticate.return_value = None
+
+        response = self.client.post(
+            "/api/login/",
+            {
+                "username": "admin",
+                "password": "000000"
+            }
+        )
+
+        self.assertEqual(response.status_code, 401)
