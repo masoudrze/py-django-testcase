@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 # Create your tests here.
 from django.test import SimpleTestCase
+from .validators import validate_password
 
 
 # class LoginTests(SimpleTestCase):
@@ -77,3 +78,23 @@ class LoginTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 401)
+
+class PasswordTests(SimpleTestCase):
+
+    def test_valid_password(self):
+        self.assertTrue(validate_password("123456789"))
+
+    def test_short_password(self):
+        self.assertFalse(validate_password("123"))
+
+    def test_empty_password(self):
+        self.assertFalse(validate_password(""))
+
+    def test_boundry_password(self):
+        self.assertTrue(validate_password("12345678"))
+
+    def test_below_boundry_password(self):
+        self.assertFalse(validate_password("1234567"))
+
+    def test_none_password(self):
+        self.assertFalse(validate_password(None))
