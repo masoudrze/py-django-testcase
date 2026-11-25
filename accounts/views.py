@@ -1,6 +1,7 @@
 from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.http import JsonResponse
 
 def login(request):
@@ -13,6 +14,8 @@ def login(request):
     )
 
     if user is not None:
+        auth_login(request, user)
+
         return JsonResponse(
             {"message": "login ok"},
             status=200
