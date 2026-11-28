@@ -1,0 +1,1 @@
+{"uuid": "9ab9c63e-b017-4de6-a592-ba06eb2b7e3d", "children": ["674d90df-5c39-4154-9603-b019800afe12"], "befores": [{"name": "_django_clear_site_cache", "status": "passed", "start": 1795851514784, "stop": 1795851514784}], "afters": [{"name": "_django_clear_site_cache::<lambda>", "start": 1795851514795}], "start": 1795851514784, "stop": 1795851514795}

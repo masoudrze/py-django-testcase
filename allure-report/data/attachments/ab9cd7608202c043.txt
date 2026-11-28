@@ -1,0 +1,38 @@
+[31m[1mERROR   [0m django.request:log.py:283 Internal Server Error: /api/login/
+Traceback (most recent call last):
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\NewShit\Django\config\accounts\views.py", line 18, in login
+    auth_login(request, user)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\contrib\auth\__init__.py", line 189, in login
+    request.session.cycle_key()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 437, in cycle_key
+    self.create()
+    ~~~~~~~~~~~^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 201, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\db\models\query.py", line 1483, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\db\models\sql\query.py", line 686, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1611, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1641, in execute_sql
+    cursor = self.connection.cursor()
+  File "D:\NewShit\Django\.venv\Lib\site-packages\django\test\testcases.py", line 193, in __call__
+    raise DatabaseOperationForbidden(self.message)
+django.test.testcases.DatabaseOperationForbidden: Database queries to 'default' are not allowed in SimpleTestCase subclasses. Either subclass TestCase or TransactionTestCase to ensure proper test isolation or add 'default' to accounts.tests.LoginMockTests.databases to silence this failure.
